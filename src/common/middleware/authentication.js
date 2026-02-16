@@ -20,6 +20,7 @@ export const authentication = async (req, res, next) => {
         throw new Error("invalid token");
 
     }
+    
 
     const user = await de_service.findOne({ model: userModel, filter: { id: decoded.id }, options: { select: "-password" } })
     if (!user) {
