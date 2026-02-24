@@ -1,4 +1,5 @@
 
+import { log } from "node:console"
 import { providerEnum } from "../../common/enum/user.enum.js"
 import { successResponse } from "../../common/utils/response.success.js"
 import { decrypt, encrypt } from "../../common/utils/security/encrypt.security.js"
@@ -7,6 +8,7 @@ import { generateToken, verifyToken } from "../../common/utils/token.service.js"
 import * as db_service from "../../DB/db.service.js"
 import userModel from "../../DB/models/user.model.js"
 import { v4 as uuidv4 } from "uuid"
+import { SALT_ROUNDS, SECRET_KEY } from "../../../config/config.service.js"
 
 // version 4
 // const asyncHandler = (fn) => {
@@ -32,7 +34,7 @@ export const signUp =
 
 
         }
-        const user = await db_service.create({ model: userModel, data: { userName, email, gender, password: hashsync({ plaintText: password, salt: 12 }), cpassword, age, phone: encrypt(phone) } })
+        const user = await db_service.create({ model: userModel, data: { userName, email, gender, password: hashsync({ plaintText: password, salt: SALT_ROUNDS }), cpassword, age, phone: encrypt(phone) } })
 
         successResponse({ res, status: 201, message: "create user successfully", data: user })
 
@@ -53,7 +55,7 @@ export const signIn = async (req, res, next) => {
         throw new Error("invalid password", { cause: 400 });
     }
     const access_token = generateToken({
-        payload: { id: user._id, email: user.email }, secret_key: "samah", options: {
+        payload: { id: user._id, email: user.email }, secret_key: SECRET_KEY, options: {
             expiresIn: "1day",
             issuer: "http://localhost:3000",
             audience: "http://localhost:4000",
@@ -70,8 +72,15 @@ export const getProfile = async (req, res, next) => {
     // const { id } = req.params;
     // const { authorization } = req.headers;
     // const decoded = verifyToken({ token: authorization, secret_key: "samah" })
-   
+
 
     successResponse({ res, data: req.user, message: "success signin" })
 
+}
+
+export const signUpWithgoogle = (req, res, next) => {
+    const { idToken } = req.body;
+    console.log('====================================');
+    console.log(idToken);
+    console.log('====================================');
 }
