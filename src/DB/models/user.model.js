@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: function () {
-            return this.provider=providerEnum.google?false:true
+            return this.provider == providerEnum.google ? false : true
         },
         minLength: 6,
 
@@ -54,7 +54,14 @@ const userSchema = new mongoose.Schema({
 
     }
     ,
-    profilePicture: String,
+    profilePicture: {
+        secure_url: { type: String, required: true }
+        , public_id: { type: String, required: true }
+    },// to store the picture
+    coverPicture: [{
+        secure_url: { type: String, required: true }
+        , public_id: { type: String, required: true }
+    }],
     confirmed: Boolean,
     provider: {
         type: String,

@@ -7,9 +7,10 @@ const app = express()
 const port = PORT
 
 const bootstrap = () => {
-   
+
 
     app.use(express.json())
+    app.use("/uploads", express.static("uploads"))
     checkConnectionDB()
     app.get('/', (req, res) => res.status(200).json({ msg: "hello in my app..😍😍" }))
     app.use("/users", userRouter)
@@ -21,7 +22,7 @@ const bootstrap = () => {
 
     app.use((err, req, res, next) => {
 
-        res.status(err.cause || 500).json({ msg: err.message, stack: err.stack })
+        res.status(err.cause || 500).json({ msg: err.message, stack: err.stack, error: err })
     })
     app.listen(port, () => console.log(`server is running on port ${port}!...😉`))
 

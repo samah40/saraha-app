@@ -11,3 +11,7 @@ export const PORT = +process.env.PORT
 export const SECRET_KEY = process.env.SECRET_KEY
 export const DB_URI = process.env.DB_URI
 export const SALT_ROUNDS = +process.env.SALT_ROUNDS
+export const ACCESS_SECRET_KEY= process.env.ACCESS_SECRET_KEY
+export const REFRESH_SECRET_KEY= process.env.REFRESH_SECRET_KEY
+export const PREFIX= process.env.PREFIX
+
