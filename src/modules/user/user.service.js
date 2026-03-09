@@ -1,5 +1,4 @@
 
-import { log } from "node:console"
 import { providerEnum } from "../../common/enum/user.enum.js"
 import { successResponse } from "../../common/utils/response.success.js"
 import { decrypt, encrypt } from "../../common/utils/security/encrypt.security.js"
