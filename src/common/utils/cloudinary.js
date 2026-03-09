@@ -12,3 +12,4 @@ export default cloudinary
 
 // api key :815877371187275
 // api secret : vKenTjKmXIwTOMun7lCk7hiui2c
+// .analysis.analyze_uri.apply.
